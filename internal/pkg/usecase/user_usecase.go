@@ -23,7 +23,7 @@ func (u *UserUsecase) GetUserTokenLogin(req dto.LoginRequest) (dto.LoginResponse
 	if err != nil {
 		return dto.LoginResponse{}, err
 	}
-	if user.Password != req.Password || user.ID == 0 {
+	if user.Password != req.Password {
 		return dto.LoginResponse{}, errors.New("Login fail")
 	}
 	timeNow := time.Now()

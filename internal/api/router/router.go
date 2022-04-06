@@ -20,7 +20,6 @@ func (r *Router) Setup() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	r.DB.MigrateDBWithGorm()
 
 	h := handler.NewHTTPHandler(r.DB)
 	webAPI := r.Engine.Group("/app")
