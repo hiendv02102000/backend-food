@@ -8,7 +8,7 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/golang-migrate/migrate/v4 v4.15.1
 	github.com/graphql-go/graphql v0.8.0
-	github.com/jinzhu/gorm v1.9.16
+	// github.com/jinzhu/gorm v1.9.16
 	github.com/satori/go.uuid v1.2.0
 )
 
@@ -32,6 +32,6 @@ require (
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gorm.io/driver/mysql v1.3.3 // indirect
-	gorm.io/driver/sqlite v1.3.1 // indirect
-	gorm.io/gorm v1.23.4 // indirect
+	gorm.io/driver/sqlite v1.3.1 // direct
+	gorm.io/gorm v1.23.4 // direct
 )
