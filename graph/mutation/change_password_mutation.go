@@ -30,10 +30,8 @@ func ChangePasswordMutation(containerRepo map[string]interface{}) *graphql.Field
 			ctx := p.Context.(*gin.Context)
 			user := middleware.GetUserFromContext(ctx)
 			req := p.Args["user"].(map[string]interface{})
-			changePasswordReq := dto.ChangePasswordRequest{
-				OldPassword: req["old_password"].(string),
-				Password:    req["password"].(string),
-			}
+			changePasswordReq := dto.ChangePasswordRequest{}
+			utils.ConvertMapToObject(req, &changePasswordReq)
 			err = utils.CheckValidate(changePasswordReq)
 			if err != nil {
 				return

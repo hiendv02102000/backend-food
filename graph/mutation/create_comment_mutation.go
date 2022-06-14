@@ -32,10 +32,8 @@ func CreateCommentMutation(containerRepo map[string]interface{}) *graphql.Field 
 			ctx := p.Context.(*gin.Context)
 			user := middleware.GetUserFromContext(ctx)
 			req := p.Args["comment"].(map[string]interface{})
-			createCommentReq := dto.CreateCommentRequest{
-				SongID:  req["song_id"].(int),
-				Content: req["content"].(string),
-			}
+			createCommentReq := dto.CreateCommentRequest{}
+			utils.ConvertMapToObject(req, &createCommentReq)
 			err = utils.CheckValidate(createCommentReq)
 			if err != nil {
 				return

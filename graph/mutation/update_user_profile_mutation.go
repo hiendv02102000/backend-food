@@ -32,10 +32,8 @@ func UpdateUserProfileMutation(containerRepo map[string]interface{}) *graphql.Fi
 			ctx := p.Context.(*gin.Context)
 			user := middleware.GetUserFromContext(ctx)
 			req := p.Args["user"].(map[string]interface{})
-			updateUserProfileReq := dto.UpdateUserProfileRequest{
-				FirstName: req["first_name"].(string),
-				LastName:  req["last_name"].(string),
-			}
+			updateUserProfileReq := dto.UpdateUserProfileRequest{}
+			utils.ConvertMapToObject(req, &updateUserProfileReq)
 			err = utils.CheckValidate(updateUserProfileReq)
 			if err != nil {
 				return

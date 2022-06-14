@@ -5,6 +5,11 @@
 │   ├── api
 │   │   └── router
 │   │       └── router.go
+│   └── graph
+│       ├── input
+│       ├── mutation
+│       ├── output
+│       └── query
 │   └── pkg
 │       ├── domain
 │       │   ├── domain_model
@@ -12,12 +17,12 @@
 │       │   │   └── entity
 │       │   └── service
 │       ├── handler
-│       ├── repository
-│       └── usecase
+│       └── repository
 ├── pkg
 │   ├── infrastructure
+│       ├── db
+│       └── schema
 │   └── shared
-│       ├── auth
 │       ├── middleware
 │       ├── utils
 │       └── validator

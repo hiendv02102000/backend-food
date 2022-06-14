@@ -2,7 +2,7 @@ package dto
 
 // CreateSongRequest struct
 type CreateSongRequest struct {
-	Title       string `validate:"required"`
-	Description string
-	Singer      string
+	Title       string `json:"title" validate:"required"`
+	Description string `json:"decription"`
+	Singer      string `json:"singer"`
 }

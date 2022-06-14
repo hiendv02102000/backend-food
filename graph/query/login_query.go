@@ -30,11 +30,8 @@ func LoginQuery(containerRepo map[string]interface{}) *graphql.Field {
 				return
 			}
 			req := p.Args["user"].(map[string]interface{})
-			loginReq := dto.LoginRequest{
-				Username: req["username"].(string),
-				Password: req["password"].(string),
-			}
-
+			loginReq := dto.LoginRequest{}
+			utils.ConvertMapToObject(req, &loginReq)
 			err = utils.CheckValidate(loginReq)
 			if err != nil {
 				return

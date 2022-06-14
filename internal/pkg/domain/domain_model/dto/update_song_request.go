@@ -2,8 +2,8 @@ package dto
 
 // UpdateSongRequest struct
 type UpdateSongRequest struct {
-	SongID      int `validate:"required"`
-	Title       string
-	Description string
-	Singer      string
+	SongID      int    `json:"id" validate:"required"`
+	Title       string `json:"title"`
+	Description string `json:"decription"`
+	Singer      string `json:"singer"`
 }

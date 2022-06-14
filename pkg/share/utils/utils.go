@@ -3,6 +3,7 @@ package utils
 import (
 	"crypto/sha256"
 	"encoding/base64"
+	"encoding/json"
 	"errors"
 	"strings"
 	"time"
@@ -53,4 +54,13 @@ func Reverse(s string) string {
 		r[i], r[j] = r[j], r[i]
 	}
 	return string(r)
+}
+
+func ConvertMapToObject(valMap map[string]interface{}, object interface{}) error {
+	jsonStr, err := json.Marshal(valMap)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(jsonStr, object)
+	return err
 }

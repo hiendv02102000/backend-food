@@ -1,6 +1,6 @@
 package dto
 
 type ChangePasswordRequest struct {
-	Password    string `validate:"required,password"`
-	OldPassword string `validate:"required,password"`
+	Password    string `json:"password" validate:"required,password"`
+	OldPassword string `json:"old_password" validate:"required,password"`
 }

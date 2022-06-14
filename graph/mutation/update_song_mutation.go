@@ -32,12 +32,8 @@ func UpdateSongMutation(containerRepo map[string]interface{}) *graphql.Field {
 			ctx := p.Context.(*gin.Context)
 			user := middleware.GetUserFromContext(ctx)
 			req := p.Args["song"].(map[string]interface{})
-			updateSongReq := dto.UpdateSongRequest{
-				SongID:      req["id"].(int),
-				Title:       req["title"].(string),
-				Description: req["decription"].(string),
-				Singer:      req["singer"].(string),
-			}
+			updateSongReq := dto.UpdateSongRequest{}
+			utils.ConvertMapToObject(req, &updateSongReq)
 			err = utils.CheckValidate(updateSongReq)
 			if err != nil {
 				return
@@ -89,6 +85,9 @@ func UpdateSongMutation(containerRepo map[string]interface{}) *graphql.Field {
 				ID:     updateSongReq.SongID,
 				UserID: user.ID,
 			})
+			if song.ID == 0 {
+				err = errors.New("You didn't upload this song")
+			}
 			if err != nil {
 				return
 			}

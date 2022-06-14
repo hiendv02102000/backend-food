@@ -32,11 +32,8 @@ func CreateSongMutation(containerRepo map[string]interface{}) *graphql.Field {
 			ctx := p.Context.(*gin.Context)
 			user := middleware.GetUserFromContext(ctx)
 			req := p.Args["song"].(map[string]interface{})
-			createSongReq := dto.CreateSongRequest{
-				Title:       req["title"].(string),
-				Description: req["decription"].(string),
-				Singer:      req["singer"].(string),
-			}
+			createSongReq := dto.CreateSongRequest{}
+			utils.ConvertMapToObject(req, &createSongReq)
 			err = utils.CheckValidate(createSongReq)
 			if err != nil {
 				return

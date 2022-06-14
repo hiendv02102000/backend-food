@@ -28,13 +28,9 @@ func CreateUserMutation(containerRepo map[string]interface{}) *graphql.Field {
 				return
 			}
 			req := p.Args["user"].(map[string]interface{})
-			createUserReq := dto.CreateUserRequest{
-				Username:  req["username"].(string),
-				Password:  req["password"].(string),
-				FirstName: req["first_name"].(string),
-				LastName:  req["last_name"].(string),
-				Email:     req["email"].(string),
-			}
+			createUserReq := dto.CreateUserRequest{}
+
+			utils.ConvertMapToObject(req, &createUserReq)
 			err = utils.CheckValidate(createUserReq)
 			if err != nil {
 				return

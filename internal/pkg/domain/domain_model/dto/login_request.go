@@ -1,6 +1,6 @@
 package dto
 
 type LoginRequest struct {
-	Username string `validate:"required"`
-	Password string `validate:"required,password"`
+	Username string `json:"username" validate:"required"`
+	Password string `json:"password" validate:"required,password"`
 }
