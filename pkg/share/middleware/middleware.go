@@ -23,7 +23,7 @@ func GetUserFromContext(c *gin.Context) entity.Users {
 	return value.(entity.Users)
 }
 
-func AuthClientMiddleware(db db.Database) gin.HandlerFunc {
+func AuthMiddleware(db db.Database) gin.HandlerFunc {
 
 	return func(c *gin.Context) {
 
@@ -80,52 +80,7 @@ func AuthClientMiddleware(db db.Database) gin.HandlerFunc {
 
 func AuthAdminMiddleware(db db.Database) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		clientToken := c.GetHeader("Authorization")
-		if clientToken == "" {
-			data := dto.BaseResponse{
-				Status: http.StatusUnauthorized,
-				Error:  "Authorization Token is required",
-			}
-			c.JSON(http.StatusUnauthorized, data)
-			c.Abort()
-			return
-		}
-		extractedToken := strings.Split(clientToken, "Bearer ")
-		clientToken = strings.TrimSpace(extractedToken[1])
-		repo := repository.NewUserRepository(db)
-		user, err := repo.FirstUser(entity.Users{
-			Token: &clientToken,
-		})
-
-		if err != nil {
-			data := dto.BaseResponse{
-				Status: http.StatusUnauthorized,
-				Error:  err.Error(),
-			}
-			c.JSON(http.StatusUnauthorized, data)
-			c.Abort()
-			return
-		}
-
-		if user.ID == 0 {
-			data := dto.BaseResponse{
-				Status: http.StatusUnauthorized,
-				Error:  "Invalid Token",
-			}
-			c.JSON(http.StatusUnauthorized, data)
-			c.Abort()
-			return
-		}
-		timeNow := time.Now()
-		if timeNow.After(*user.TokenExpiredAt) {
-			data := dto.BaseResponse{
-				Status: http.StatusUnauthorized,
-				Error:  "Token Expired",
-			}
-			c.JSON(http.StatusUnauthorized, data)
-			c.Abort()
-			return
-		}
+		user := GetUserFromContext(c)
 		if user.Role != entity.AdminRole {
 			data := dto.BaseResponse{
 				Status: http.StatusForbidden,
@@ -135,7 +90,6 @@ func AuthAdminMiddleware(db db.Database) gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		c.Set("user", user)
 		c.Next()
 	}
 }

@@ -30,20 +30,22 @@ func (r *Router) Setup() {
 	webAPI := r.Engine.Group("/app")
 	{
 		webAPI.POST("/query", h.Handle)
-		clientAPI := webAPI.Group("/client")
+		musicAPI := webAPI.Group("/account")
 		{
-			clientAPI.Use(middleware.AuthClientMiddleware(r.DB))
+			musicAPI.Use(middleware.AuthMiddleware(r.DB))
 			{
-				clientAPI.POST("/query", hClient.Handle)
+				musicAPI.POST("/query", hClient.Handle)
+
+				adminAPI := webAPI.Group("/admin")
+				{
+					adminAPI.Use(middleware.AuthAdminMiddleware(r.DB))
+					{
+						adminAPI.POST("/query", hAdmin.Handle)
+					}
+				}
 			}
 		}
-		adminAPI := webAPI.Group("/admin")
-		{
-			adminAPI.Use(middleware.AuthAdminMiddleware(r.DB))
-			{
-				adminAPI.POST("/query", hAdmin.Handle)
-			}
-		}
+
 	}
 }
 func NewRouter() Router {
