@@ -86,7 +86,7 @@ func UpdateSongMutation(containerRepo map[string]interface{}) *graphql.Field {
 				UserID: user.ID,
 			})
 			if song.ID == 0 {
-				err = errors.New("You didn't upload this song")
+				err = errors.New("you didn't upload this song")
 			}
 			if err != nil {
 				return
