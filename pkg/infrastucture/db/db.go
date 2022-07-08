@@ -4,7 +4,7 @@ import (
 
 	// import source file
 
-	"backend-food/internal/pkg/domain/domain_model/entity"
+	"api/internal/pkg/domain/domain_model/entity"
 	"fmt"
 
 	_ "github.com/golang-migrate/migrate/v4/source/file"
@@ -28,7 +28,7 @@ func NewDB() (Database, error) {
 	}, err
 }
 func (db *Database) MigrateDBWithGorm() {
-	db.DB.AutoMigrate(entity.Users{}, entity.Comment{}, entity.Song{})
+	db.DB.AutoMigrate(entity.Users{})
 }
 func (db *Database) Begin() Database {
 	return Database{

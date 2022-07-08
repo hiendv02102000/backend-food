@@ -1,11 +1,11 @@
 package middleware
 
 import (
-	"backend-food/internal/pkg/domain/domain_model/dto"
-	"backend-food/internal/pkg/domain/domain_model/entity"
-	"backend-food/internal/pkg/repository"
+	"api/internal/pkg/domain/domain_model/dto"
+	"api/internal/pkg/domain/domain_model/entity"
+	"api/internal/pkg/repository"
 
-	"backend-food/pkg/infrastucture/db"
+	"api/pkg/infrastucture/db"
 
 	"net/http"
 	"strings"

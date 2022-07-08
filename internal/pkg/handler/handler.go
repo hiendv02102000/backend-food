@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"backend-food/pkg/infrastucture/db"
+	"api/pkg/infrastucture/db"
 )
 
 type HTTPHandler struct {

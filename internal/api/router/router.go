@@ -1,9 +1,9 @@
 package router
 
 import (
-	"backend-food/pkg/infrastucture/db"
-	"backend-food/pkg/share/middleware"
-	"backend-food/pkg/share/validators"
+	"api/pkg/infrastucture/db"
+	"api/pkg/share/middleware"
+
 	"fmt"
 
 	"github.com/gin-gonic/gin"
@@ -22,7 +22,7 @@ func (r *Router) Setup() {
 		fmt.Println(err)
 	}
 	r.DB.MigrateDBWithGorm()
-	validators.SetUpValidator()
+
 	// h := handler.NewHTTPHandler(r.DB)
 
 	webAPI := r.Engine.Group("/app")
