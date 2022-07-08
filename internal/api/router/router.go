@@ -1,7 +1,6 @@
 package router
 
 import (
-	"backend-food/internal/pkg/handler"
 	"backend-food/pkg/infrastucture/db"
 	"backend-food/pkg/share/middleware"
 	"backend-food/pkg/share/validators"
@@ -24,25 +23,15 @@ func (r *Router) Setup() {
 	}
 	r.DB.MigrateDBWithGorm()
 	validators.SetUpValidator()
-	h := handler.NewHTTPHandler(r.DB)
-	hClient := handler.NewHTTPClientHandler(r.DB)
-	hAdmin := handler.NewHTTPAdminHandler(r.DB)
+	// h := handler.NewHTTPHandler(r.DB)
+
 	webAPI := r.Engine.Group("/app")
 	{
-		webAPI.POST("/query", h.Handle)
+
 		musicAPI := webAPI.Group("/account")
 		{
 			musicAPI.Use(middleware.AuthMiddleware(r.DB))
 			{
-				musicAPI.POST("/query", hClient.Handle)
-
-				adminAPI := webAPI.Group("/admin")
-				{
-					adminAPI.Use(middleware.AuthAdminMiddleware(r.DB))
-					{
-						adminAPI.POST("/query", hAdmin.Handle)
-					}
-				}
 			}
 		}
 
