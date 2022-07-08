@@ -28,7 +28,11 @@ func NewDB() (Database, error) {
 	}, err
 }
 func (db *Database) MigrateDBWithGorm() {
-	db.DB.AutoMigrate(entity.Users{})
+	db.DB.AutoMigrate(
+		entity.Users{},
+		entity.Brand{},
+		entity.Cart{},
+	)
 }
 func (db *Database) Begin() Database {
 	return Database{

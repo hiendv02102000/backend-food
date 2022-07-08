@@ -18,11 +18,7 @@ func (u *userRepository) FindUserList(condition entity.Users) (user []entity.Use
 	err = u.DB.Find(&user, condition)
 	return
 }
-func (u *userRepository) FirstUserListWithAnyCondition(query string, condition ...interface{}) (entity.Users, error) {
-	user := entity.Users{}
-	err := u.DB.RawQuery(&user, query, condition...)
-	return user, err
-}
+
 func (u *userRepository) CreateUser(user entity.Users) (entity.Users, error) {
 	err := u.DB.Create(&user)
 	return user, err
